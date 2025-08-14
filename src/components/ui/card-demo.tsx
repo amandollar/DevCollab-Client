@@ -1,6 +1,6 @@
 "use client";
 import { animate, motion } from "motion/react";
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { GoCopilot } from "react-icons/go";
 
@@ -66,9 +66,9 @@ const Skeleton = () => {
 
   useEffect(() => {
     animate(sequence, {
-      // @ts-ignore
-      repeat: Infinity,
-      repeatDelay: 1,
+      /// @ts-expect-error motion.animate type mismatch: repeat is not typed
+repeat: Infinity,
+repeatDelay: 1,
     });
   }, []);
   return (
