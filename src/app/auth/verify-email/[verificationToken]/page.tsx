@@ -6,13 +6,14 @@ import { authApi, tokenStorage } from '@/lib/auth';
 import toast from 'react-hot-toast';
 import { IconCircleCheck, IconCircleX, IconLoader } from '@tabler/icons-react';
 import Link from 'next/link';
+import { User } from '@/lib/auth';
 
 export default function VerifyEmailTokenPage() {
   const params = useParams();
   const router = useRouter();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('');
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const verifyEmail = async () => {
@@ -24,7 +25,7 @@ export default function VerifyEmailTokenPage() {
         tokenStorage.setToken(response.token);
         setUser(response.user);
         setStatus('success');
-        setMessage(response.message || 'Email verified successfully!');
+        setMessage('Email verified successfully!');
         
         toast.success('Email verified successfully! Welcome to DevCollab!');
         
@@ -33,10 +34,11 @@ export default function VerifyEmailTokenPage() {
           router.push('/dashboard');
         }, 3000);
         
-      } catch (error: any) {
+      } catch (error: unknown) {
         setStatus('error');
-        setMessage(error.message || 'Email verification failed');
-        toast.error(error.message || 'Email verification failed');
+        const errorMessage = error instanceof Error ? error.message : 'Email verification failed';
+        setMessage(errorMessage);
+        toast.error(errorMessage);
       }
     };
 

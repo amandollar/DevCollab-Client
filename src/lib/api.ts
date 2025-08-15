@@ -117,7 +117,7 @@ export const handleApiResponse = async <T>(response: Response): Promise<T> => {
 
   try {
     return await response.json()
-  } catch (error) {
+  } catch {
     throw new Error('Invalid response format from server')
   }
 }
@@ -139,7 +139,7 @@ export const apiClient = {
   },
 
   // POST request
-  async post<T>(endpoint: string, data?: any, options: RequestInit = {}): Promise<T> {
+  async post<T>(endpoint: string, data?: unknown, options: RequestInit = {}): Promise<T> {
     const response = await fetchWithRetry(`${API_BASE_URL}${endpoint}`, {
       method: 'POST',
       headers: {
@@ -154,7 +154,7 @@ export const apiClient = {
   },
 
   // PUT request
-  async put<T>(endpoint: string, data?: any, options: RequestInit = {}): Promise<T> {
+  async put<T>(endpoint: string, data?: unknown, options: RequestInit = {}): Promise<T> {
     const response = await fetchWithRetry(`${API_BASE_URL}${endpoint}`, {
       method: 'PUT',
       headers: {
@@ -183,7 +183,7 @@ export const apiClient = {
   },
 
   // PATCH request
-  async patch<T>(endpoint: string, data?: any, options: RequestInit = {}): Promise<T> {
+  async patch<T>(endpoint: string, data?: unknown, options: RequestInit = {}): Promise<T> {
     const response = await fetchWithRetry(`${API_BASE_URL}${endpoint}`, {
       method: 'PATCH',
       headers: {

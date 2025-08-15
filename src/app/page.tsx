@@ -28,7 +28,7 @@ export default function Home() {
       try {
         const result = await authApi.healthCheck()
         console.log('Backend is awake and ready!', result.message)
-      } catch (error) {
+      } catch {
         console.log('💤 Backend might be sleeping, but that\'s okay!')
       }
     }

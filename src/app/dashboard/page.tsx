@@ -1,7 +1,7 @@
 "use client";
 //Sample Dashboard Page ,will be updated later
 import { useAuth } from '@/contexts/AuthContext';
-import ProtectedRoute from '@/components/auth/ProtectedRoute';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import toast from 'react-hot-toast';
 import { IconLogout, IconUser, IconMail, IconCalendar } from '@tabler/icons-react';
 

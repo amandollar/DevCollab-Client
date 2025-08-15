@@ -114,24 +114,27 @@ const handleApiResponse = async <T>(response: Response): Promise<T> => {
 
   try {
     return await response.json()
-  } catch (error) {
+  } catch {
     throw new Error('Invalid response format from server')
   }
 }
 
 // Types
 export interface User {
-  _id: string
+  _id?: string
+  id?: string
   name: string
   email: string
   image?: string
-  isVerified: boolean
-  createdAt: string
+  isVerified?: boolean
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface AuthResponse {
   user: User
   token: string
+  message?: string
 }
 
 export interface LoginResponse {
@@ -216,7 +219,7 @@ export const authApi = {
         throw new Error('No authentication token found')
       }
 
-      const response = await fetchWithRetry(`${API_BASE_URL}/auth/me`, {
+      const response = await fetchWithRetry(`${API_BASE_URL}/auth/profile`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -252,12 +255,11 @@ export const authApi = {
   // Verify email
   async verifyEmail(token: string): Promise<AuthResponse> {
     try {
-      const response = await fetchWithRetry(`${API_BASE_URL}/auth/verify-email`, {
-        method: 'POST',
+      const response = await fetchWithRetry(`${API_BASE_URL}/auth/verify-email/${token}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token }),
       })
 
       return handleApiResponse<AuthResponse>(response)
@@ -306,5 +308,10 @@ export const tokenStorage = {
     if (typeof window === 'undefined') return
     localStorage.removeItem('devcollab_token')
     localStorage.removeItem('devcollab_user')
+  },
+
+  isAuthenticated(): boolean {
+    if (typeof window === 'undefined') return false
+    return !!localStorage.getItem('devcollab_token')
   }
 }

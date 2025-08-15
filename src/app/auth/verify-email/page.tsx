@@ -20,8 +20,9 @@ export default function VerifyEmailPage() {
     try {
       await authApi.resendVerification(email);
       toast.success('Verification email sent successfully! Please check your inbox.');
-    } catch (error: any) {
-      toast.error(error.message || 'Failed to resend verification email.');
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to resend verification email';
+      toast.error(errorMessage);
     } finally {
       setIsResending(false);
     }

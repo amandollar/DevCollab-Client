@@ -9,18 +9,18 @@ interface ProtectedRouteProps {
   redirectTo?: string;
 }
 
-export default function ProtectedRoute({ 
+export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
   children, 
   redirectTo = '/auth/login' 
-}: ProtectedRouteProps) {
-  const { user, loading, isAuthenticated } = useAuth();
+}) => {
+  const { isAuthenticated, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
       router.push(redirectTo);
     }
-  }, [loading, isAuthenticated, router, redirectTo]);
+  }, [isAuthenticated, loading, router, redirectTo]);
 
   if (loading) {
     return (

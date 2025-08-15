@@ -39,8 +39,9 @@ export default function LoginFormDemo() {
       }
       // If successful, the login function will redirect to dashboard
       
-    } catch (err: any) {
-      toast.error(err.message || "Login failed. Please try again.");
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Login failed';
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

@@ -25,8 +25,9 @@ export default function SignupFormDemo() {
     try {
       await register(name, email, password, selectedImage || undefined);
       toast.success("Account created successfully! Please check your email for verification.");
-    } catch (err: any) {
-      toast.error(err.message || "Registration failed. Please try again.");
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Registration failed';
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }

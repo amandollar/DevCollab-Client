@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const userData = await authApi.getCurrentUser();
           setUser(userData);
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error('Failed to get current user:', error);
         tokenStorage.removeToken();
       } finally {
@@ -55,8 +55,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(response.user);
       router.push('/dashboard');
       return { success: true };
-    } catch (error: any) {
-      if (error.message === 'EMAIL_NOT_VERIFIED') {
+    } catch (error: unknown) {
+      if (error instanceof Error && error.message === 'EMAIL_NOT_VERIFIED') {
         return { 
           success: false, 
           requiresVerification: true, 
@@ -72,11 +72,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (name: string, email: string, password: string, image?: File) => {
     try {
       setLoading(true);
-      const response = await authApi.register({ name, email, password, image });
+      await authApi.register({ name, email, password, image });
       // Don't set token here as user needs to verify email first
       // Just show success message and redirect to verification page
       router.push('/auth/verify-email?email=' + encodeURIComponent(email));
-    } catch (error) {
+    } catch (error: unknown) {
       throw error;
     } finally {
       setLoading(false);
