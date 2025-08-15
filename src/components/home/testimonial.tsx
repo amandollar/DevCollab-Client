@@ -31,16 +31,18 @@ export default function TestimonialsSection() {
         <h2 className="text-4xl sm:text-4xl font-bold text-white mb-12">
           What Our Users Say
         </h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {/* Flex layout */}
+        <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-8">
           {testimonials.map((t, i) => (
-            <PinContainer key={i} title={t.name} href="#">
-              <div className="w-[320px] p-5 rounded-2xl bg-slate-900/60 backdrop-blur-lg border border-white/10 shadow-lg text-left flex flex-col">
+            <PinContainer key={i} title={t.name} href="#" className="flex-1 min-w-[280px] max-w-[320px]">
+              <div className="w-full p-5 rounded-2xl bg-slate-900/60 backdrop-blur-lg border border-white/10 shadow-lg text-left flex flex-col h-full">
                 {/* Header */}
                 <div className="flex items-center gap-4 mb-4">
                   <img
                     src={t.avatar}
                     alt={t.name}
-                    className="w-12 h-12 rounded-full border border-white/20"
+                    className="w-12 h-12 rounded-full border border-white/20 object-cover"
                   />
                   <div>
                     <h3 className="text-white font-semibold">{t.name}</h3>
