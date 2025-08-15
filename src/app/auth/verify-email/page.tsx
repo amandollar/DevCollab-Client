@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { authApi } from '@/lib/auth';
 import toast from 'react-hot-toast';
 import { IconMail, IconRefresh } from '@tabler/icons-react';
 import Link from 'next/link';
 
-export default function VerifyEmailPage() {
+function VerifyEmailContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
   const [isResending, setIsResending] = useState(false);
@@ -41,7 +41,7 @@ export default function VerifyEmailPage() {
           </h2>
           
           <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-6">
-            We've sent a verification link to{' '}
+            We&apos;ve sent a verification link to{' '}
             <span className="font-medium text-neutral-800 dark:text-neutral-200">
               {email}
             </span>
@@ -75,18 +75,30 @@ export default function VerifyEmailPage() {
 
           <div className="mt-6 pt-6 border-t border-neutral-200 dark:border-neutral-700">
             <p className="text-xs text-neutral-500 dark:text-neutral-400">
-              Didn't receive the email? Check your spam folder or{' '}
-              <button
-                onClick={handleResendVerification}
-                disabled={isResending || !email}
-                className="text-blue-600 hover:underline disabled:opacity-50"
-              >
-                try again
-              </button>
+              Didn&apos;t receive the verification email? Check your spam folder or request a new one.
             </p>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function VerifyEmailPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+            <IconMail className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+          </div>
+          <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200 mb-2">
+            Loading...
+          </h2>
+        </div>
+      </div>
+    }>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }

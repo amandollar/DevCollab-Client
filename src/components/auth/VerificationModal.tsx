@@ -53,11 +53,8 @@ export default function VerificationModal({ isOpen, onClose, email }: Verificati
           </h2>
           
           {/* Description */}
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
-            Your account exists but needs email verification. We've sent a verification link to{' '}
-            <span className="font-medium text-gray-900 dark:text-white">
-              {email}
-            </span>
+          <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-4">
+            We&apos;ve sent a verification email to <strong>{email}</strong>. Please check your inbox and click the verification link to activate your account.
           </p>
 
           {/* Info box */}
@@ -91,7 +88,7 @@ export default function VerificationModal({ isOpen, onClose, email }: Verificati
           {/* Help text */}
           <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Didn't receive the email? Check your spam folder or{' '}
+              Didn&apos;t receive the email? Check your spam folder or{' '}
               <button
                 onClick={handleResendVerification}
                 disabled={isResending}

@@ -63,7 +63,7 @@ export default function SignupFormDemo() {
           <div className="flex items-start space-x-2">
             <IconInfoCircle className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
             <p className="text-xs text-blue-800 dark:text-blue-200">
-              After signing up, you'll receive a verification email. Please verify your email to activate your account.
+              After signing up, you&apos;ll receive a verification email. Please verify your email to activate your account.
             </p>
           </div>
         </div>

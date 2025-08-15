@@ -65,7 +65,7 @@ function DashboardContent() {
                 Welcome back, {user?.name}! 👋
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                You're all set up and ready to start collaborating with developers around the world.
+                You&apos;re all set up and ready to start collaborating with developers around the world.
               </p>
             </div>
           </div>
@@ -137,7 +137,7 @@ function DashboardContent() {
           <div className="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
             <div className="px-4 py-5 sm:p-6">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-                What's Next?
+                What&apos;s Next?
               </h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
